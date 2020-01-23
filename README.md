@@ -1,2 +1,1 @@
-# htm-c
-Hierarchical Temporal Memory in C
+# Hierarchical Temporal Memory in C
