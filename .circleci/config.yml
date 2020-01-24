@@ -1,0 +1,18 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.4.2-stretch
+    steps:
+      - checkout
+      - run:
+          name: Installing Bundler
+          command: gem install bundler
+      - run:
+          name: Installing Ruby Gems
+          command: bundle install && bundle clean
+      - run:
+          name: Running Unit Tests
+          command: bundle exec rake test:all
+          
