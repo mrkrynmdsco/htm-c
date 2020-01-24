@@ -1,3 +1,6 @@
+# Directories
+build/
+
 # Prerequisites
 *.d
 
@@ -7,6 +10,7 @@
 *.obj
 *.elf
 
+# Makefile output
 *.s
 *.i
 

@@ -5,15 +5,15 @@
 
 #include "types.h"
 
-struct sdr
+typedef struct SDR
 {
     uint16 nbits;   // vector size
     real32 sprct;   // sparsity (percentage)
     uint16 wbits;   // vector cardinality (ON-bits count)
     uint16* data;   // pointer to an array of ON-bits indices
-};
+} SDR;
 
-typedef struct sdr SDR;
+// typedef struct sdr SDR;
 
 extern SDR* SDR__create(uint16 n, real32 s);
 extern void SDR__destroy(SDR* obj);

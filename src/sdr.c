@@ -3,7 +3,7 @@
 
 
 // Constructor (without allocation)
-void SDR__init(SDR* self, uint16 n, real32 s)
+void SDR__init (SDR* self, uint16 n, real32 s)
 {
     self->nbits = n;
     self->sprct = s;
@@ -13,7 +13,7 @@ void SDR__init(SDR* self, uint16 n, real32 s)
 }
 
 // Allocation and Initialization
-SDR* SDR__create(uint16 n, real32 s)
+SDR* SDR__create (uint16 n, real32 s)
 {
     // allocate the SDR object
     SDR* sdr_p = (SDR*) malloc(sizeof(SDR));
@@ -25,7 +25,7 @@ SDR* SDR__create(uint16 n, real32 s)
 }
 
 // Destructor (without deallocation)
-void SDR__reset(SDR* self)
+void SDR__reset (SDR* self)
 {
     // All elements reset to zero
     for(uint16 i=0 ; i<self->wbits ; i++)
@@ -36,7 +36,7 @@ void SDR__reset(SDR* self)
 }
 
 // Deallocation and Destroy
-void SDR__destroy(SDR* obj)
+void SDR__destroy (SDR* obj)
 {
     if (obj)
     {

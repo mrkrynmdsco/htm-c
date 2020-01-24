@@ -15,6 +15,7 @@ typedef char sint8;
  * Represents an 8-bit unsigned integer
  */
 typedef unsigned char uint8;
+typedef unsigned char byte;
 
 /**
  * Represents a 16-bit signed integer.
