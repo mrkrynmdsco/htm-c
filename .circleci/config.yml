@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 jobs:
   build:
@@ -10,9 +10,9 @@ jobs:
           name: Installing Bundler
           command: gem install bundler
       - run:
-          name: Installing Ruby Gems
-          command: bundle install ceedling && bundle clean
+          name: Installing Ceedling
+          command: gem install ceedling
       - run:
           name: Running Unit Tests
-          command: bundle exec rake test:all
+          command: ceedling test:all
           
