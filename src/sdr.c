@@ -2,46 +2,58 @@
 #include "sdr.h"
 
 
-// Constructor (without allocation)
-void SDR__init (SDR* self, uint16 n, real32 s)
+// Constructor (initialization and allocation)
+SDR* SDR_create (uint16 n, real32 s)
 {
-    self->nbits = n;
-    self->sprct = s;
-    self->wbits = (uint16) (n * s);
-
-    return;
-}
-
-// Allocation and Initialization
-SDR* SDR__create (uint16 n, real32 s)
-{
-    // allocate the SDR object
+    // allocate the SDR object and return a pointer to it
     SDR* sdr_p = (SDR*) malloc(sizeof(SDR));
-    SDR__init(sdr_p, n, s);
-    // allocate the SDR data memory blocks
-    sdr_p->data = (uint16*) calloc(sdr_p->wbits, sizeof(uint16));
+
+    // total number of bit population
+    sdr_p->nbits = n;
+
+    // sparsity percentage
+    sdr_p->sprct = s;
+
+    // calculate number of expected ON-bits
+    sdr_p->wbits = (uint16) (n * s);
+
+    // calculate number of bytes to be allocated for dense representation
+    sdr_p->dbyte = sdr_p->nbits / CHAR_BIT + (sdr_p->nbits % CHAR_BIT != 0);
     
+    // allocate the SDR dense representation memory blocks
+    sdr_p->dense = (uint8*) calloc(sdr_p->dbyte, sizeof(uint8));
+    
+    // allocate the SDR sparse representation memory blocks
+    sdr_p->sparse = (uint16*) calloc(sdr_p->wbits, sizeof(uint16));
+
     return sdr_p;
 }
 
-// Destructor (without deallocation)
-void SDR__reset (SDR* self)
+// Reset (without deallocation)
+void SDR_reset (SDR* self)
 {
-    // All elements reset to zero
+    // All dense elements reset to zero
+    for(uint16 i = 0 ; i < sizeof(self->dense) ; i++)
+    {
+        self->dense[i] = 0;
+    }
+
+    // All sparse elements reset to zero
     for(uint16 i=0 ; i<self->wbits ; i++)
     {
-        self->data[i] = 0;
+        self->sparse[i] = 0;
     }
     return;
 }
 
-// Deallocation and Destroy
-void SDR__destroy (SDR* obj)
+// Destructor (deallocation and destroy)
+void SDR_destroy (SDR* obj)
 {
     if (obj)
     {
-        SDR__reset(obj);
-        free(obj->data);
+        SDR_reset(obj);
+        free(obj->dense);
+        free(obj->sparse);
         free(obj);
     }
     return;

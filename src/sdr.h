@@ -10,15 +10,15 @@ typedef struct SDR
     uint16 nbits;   // vector size
     real32 sprct;   // sparsity (percentage)
     uint16 wbits;   // vector cardinality (ON-bits count)
-    uint16* data;   // pointer to an array of ON-bits indices
+    
+    uint16 dbyte;   // dense bytes
+    uint8* dense;   // pointer to an array of bits of dense representation
+    uint16* sparse; // pointer to an array of ON-bits indices
 } SDR;
 
-// typedef struct sdr SDR;
+extern SDR* SDR_create(uint16 n, real32 s);
+extern void SDR_destroy(SDR* obj);
 
-extern SDR* SDR__create(uint16 n, real32 s);
-extern void SDR__destroy(SDR* obj);
-
-extern void SDR__init(SDR* self, uint16 n, real32 s);
-extern void SDR__reset(SDR* self);
+extern void SDR_reset(SDR* self);
 
 #endif // HTM_SDR_H

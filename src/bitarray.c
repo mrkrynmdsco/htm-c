@@ -8,11 +8,12 @@
 BitArray* BitArray_create (uint16 num_bits)
 {
    // allocate memory for a BitArray and return a pointer to it
-    BitArray* array = malloc(sizeof(BitArray));
+    BitArray* array = (BitArray*) malloc(sizeof(BitArray));
     uint16 bytes_required = num_bits / CHAR_BIT + (num_bits % CHAR_BIT != 0);
-    
+
     array->nbits = num_bits;
-    array->data = calloc(bytes_required, 1);
+    array->data = (uint8*) calloc(bytes_required, sizeof(uint8));
+
     return array;
 }
 
