@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+
+#define CHAR_BITS   8
+
 /**
  * Represents an 8-bit signed integer
  */

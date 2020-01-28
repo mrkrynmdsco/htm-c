@@ -18,7 +18,7 @@ SDR* SDR_create (uint16 n, real32 s)
     sdr_p->wbits = (uint16) (n * s);
 
     // calculate number of bytes to be allocated for dense representation
-    sdr_p->dbyte = sdr_p->nbits / CHAR_BIT + (sdr_p->nbits % CHAR_BIT != 0);
+    sdr_p->dbyte = sdr_p->nbits / CHAR_BITS + (sdr_p->nbits % CHAR_BITS != 0);
     
     // allocate the SDR dense representation memory blocks
     sdr_p->dense = (uint8*) calloc(sdr_p->dbyte, sizeof(uint8));

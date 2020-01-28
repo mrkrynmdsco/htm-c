@@ -9,7 +9,7 @@ BitArray* BitArray_create (uint16 num_bits)
 {
    // allocate memory for a BitArray and return a pointer to it
     BitArray* array = (BitArray*) malloc(sizeof(BitArray));
-    uint16 bytes_required = num_bits / CHAR_BIT + (num_bits % CHAR_BIT != 0);
+    uint16 bytes_required = num_bits / CHAR_BITS + (num_bits % CHAR_BITS != 0);
 
     array->nbits = num_bits;
     array->data = (uint8*) calloc(bytes_required, sizeof(uint8));
@@ -34,8 +34,8 @@ uint16 BitArray_get (BitArray* array, uint16 index)
     }
     else
     {
-       uint16 byte_index = index / CHAR_BIT;
-       uint16 bit_index = index % CHAR_BIT;
+       uint16 byte_index = index / CHAR_BITS;
+       uint16 bit_index = index % CHAR_BITS;
        return (array->data[byte_index] >> bit_index) & 1;
     }
 }
@@ -45,8 +45,8 @@ void BitArray_set (BitArray* array, uint16 index, uint16 value)
     // check array[index] = (value != 0)
     if (index >= 0 || index < array->nbits)
     {
-        uint16 byte_index = index / CHAR_BIT;
-        uint16 bit_index = index % CHAR_BIT;
+        uint16 byte_index = index / CHAR_BITS;
+        uint16 bit_index = index % CHAR_BITS;
         byte b = array->data[byte_index];
         byte mask = 1 << bit_index;
         b &= ~mask;
