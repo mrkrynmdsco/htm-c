@@ -52,4 +52,13 @@ void test_sdr_Get_SDR_bit_by_index(void)
 {
     sdr->dense[0] = 0b10000000;
     TEST_ASSERT_EQUAL(1, SDR_get(sdr, 7));
+
+    sdr->dense[1] = 0b10000000;
+    TEST_ASSERT_EQUAL(1, SDR_get(sdr, 15));
+
+    sdr->dense[511] = 0b10000000;
+    TEST_ASSERT_EQUAL(1, SDR_get(sdr, 4095));
+
+    sdr->dense[511] = 0b00000001;
+    TEST_ASSERT_EQUAL(1, SDR_get(sdr, 4088));
 }
