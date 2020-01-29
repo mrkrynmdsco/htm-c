@@ -3,7 +3,7 @@
 
 
 // Constructor (initialization and allocation)
-SDR* SDR_create (uint16 n, real32 s)
+SDR* sdr_Create (uint16 n, real32 s)
 {
     // allocate the SDR object and return a pointer to it
     SDR* sdr_p = (SDR*) malloc(sizeof(SDR));
@@ -30,7 +30,7 @@ SDR* SDR_create (uint16 n, real32 s)
 }
 
 // Reset all bits(without deallocation)
-void SDR_reset_all (SDR* self)
+void sdr_ResetAll (SDR* self)
 {
     // All dense elements reset to zero
     for(uint16 i = 0 ; i < sizeof(self->dense) ; i++)
@@ -48,11 +48,11 @@ void SDR_reset_all (SDR* self)
 }
 
 // Destructor (deallocation and destroy)
-void SDR_destroy (SDR* self)
+void sdr_Destroy (SDR* self)
 {
     if (self)
     {
-        SDR_reset_all(self);
+        sdr_ResetAll(self);
         free(self->dense);
         free(self->sparse);
         free(self);
@@ -60,7 +60,7 @@ void SDR_destroy (SDR* self)
     return;
 }
 
-void SDR_set (SDR* self, uint16 i)
+void sdr_DenseSet (SDR* self, uint16 i)
 {
     // check array[index] = (value != 0)
     if (i >= 0 && i < self->nbits)
@@ -79,7 +79,7 @@ void SDR_set (SDR* self, uint16 i)
     return;
 }
 
-uint8 SDR_get (SDR* self, uint16 i)
+uint8 sdr_DenseGet (SDR* self, uint16 i)
 {
     uint8 state;
 

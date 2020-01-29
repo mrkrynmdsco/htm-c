@@ -19,13 +19,13 @@ typedef struct SDR
 
 } SDR;
 
-extern SDR* SDR_create (uint16 n, real32 s);
-extern void SDR_destroy (SDR* self);
+extern SDR* sdr_Create (uint16 n, real32 s);
+extern void sdr_Destroy (SDR* self);
 
-extern void SDR_set (SDR* self, uint16 i);
-extern void SDR_reset (SDR* self, uint16 i);
+extern void sdr_Reset (SDR* self, uint16 i);
+extern void sdr_ResetAll (SDR* self);
 
-extern uint8 SDR_get (SDR* self, uint16 i);
-extern void SDR_reset_all (SDR* self);
+extern void sdr_DenseSet (SDR* self, uint16 i);
+extern uint8 sdr_DenseGet (SDR* self, uint16 i);
 
 #endif // HTM_SDR_H
