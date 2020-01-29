@@ -23,14 +23,14 @@ SDR* SDR_create (uint16 n, real32 s)
     // allocate the SDR dense representation memory blocks
     sdr_p->dense = (uint8*) calloc(sdr_p->dbyte, sizeof(uint8));
     
-    // allocate the SDR sparse representation memory blocks
+    // allocate the SDR sparse representation memory blocks (read-only)
     sdr_p->sparse = (uint16*) calloc(sdr_p->wbits, sizeof(uint16));
 
     return sdr_p;
 }
 
-// Reset (without deallocation)
-void SDR_reset (SDR* self)
+// Reset all bits(without deallocation)
+void SDR_reset_all (SDR* self)
 {
     // All dense elements reset to zero
     for(uint16 i = 0 ; i < sizeof(self->dense) ; i++)
@@ -43,18 +43,57 @@ void SDR_reset (SDR* self)
     {
         self->sparse[i] = 0;
     }
+
     return;
 }
 
 // Destructor (deallocation and destroy)
-void SDR_destroy (SDR* obj)
+void SDR_destroy (SDR* self)
 {
-    if (obj)
+    if (self)
     {
-        SDR_reset(obj);
-        free(obj->dense);
-        free(obj->sparse);
-        free(obj);
+        SDR_reset_all(self);
+        free(self->dense);
+        free(self->sparse);
+        free(self);
     }
     return;
+}
+
+void SDR_set (SDR* self, uint16 i)
+{
+    // check array[index] = (value != 0)
+    if (i >= 0 && i < self->nbits)
+    {
+        uint16 byte_index = i / CHAR_BITS;
+        uint16 bit_index = i % CHAR_BITS;
+
+        byte b = self->dense[byte_index];
+        byte mask = 1 << bit_index;
+        // b &= ~mask;
+        b |= mask;
+        
+        self->dense[byte_index] = b;
+    }
+
+    return;
+}
+
+uint8 SDR_get (SDR* self, uint16 i)
+{
+    uint8 state;
+
+    // return the bit at the given index, or -1 if out of bounds
+    if (i < 0 || i >= self->nbits)
+    {
+       state = -1;
+    }
+    else
+    {
+       uint16 byte_index = i / CHAR_BITS;
+       uint16 bit_index = i % CHAR_BITS;
+       state = (self->dense[byte_index] >> bit_index) & 1;
+    }
+
+    return state;
 }
