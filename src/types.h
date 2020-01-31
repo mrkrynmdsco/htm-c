@@ -8,6 +8,12 @@
 
 
 #define CHAR_BITS   8
+#define TRUE        1
+#define FALSE       0
+#define ON          1
+#define OFF         0
+#define YES         1
+#define NO          0
 
 /**
  * Represents an 8-bit signed integer

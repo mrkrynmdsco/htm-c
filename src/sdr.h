@@ -13,19 +13,22 @@ typedef struct SDR
     
     uint16 dbyte;   // dense bytes
 
-    uint8* dense;   // pointer to an array of bits of dense representation
+    uint16 s_pos;   // most recent vacant sparse position
     uint16* sparse; // pointer to an array of ON-bits indices
-    
 
+    uint8 isdense;  // flag to include calculation of dense representation
+    uint8* dense;   // pointer to an array of bits of dense representation
 } SDR;
 
-extern SDR* sdr_Create (uint16 n, real32 s);
-extern void sdr_Destroy (SDR* self);
+extern SDR* sdr_Create (uint16 n, real32 s, uint8 isdense);
+extern void sdr_Destroy (SDR* const self);
 
-extern void sdr_Reset (SDR* self, uint16 i);
-extern void sdr_ResetAll (SDR* self);
+extern void sdr_Reset (SDR* const self, uint16 i);
+extern void sdr_ResetAll (SDR* const self);
 
-extern void sdr_DenseSet (SDR* self, uint16 i);
-extern uint8 sdr_DenseGet (SDR* self, uint16 i);
+extern void sdr_SparseSet (SDR* const self, uint16 i);
+
+extern void sdr_DenseSet (SDR* const self, uint16 i);
+extern uint8 sdr_DenseGet (SDR* const self, uint16 i);
 
 #endif // HTM_SDR_H
