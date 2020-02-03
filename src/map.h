@@ -7,7 +7,6 @@
 typedef struct map {
     uint8 nrow;
     uint8 ncol;
-    uint16 data;
 } Map;
 
 extern Map* map_Create(uint8 row, uint8 col);
