@@ -5,7 +5,6 @@
 void map_ctor (Map* self, uint8 row, uint8 col) {
     self->nrow = row;
     self->ncol = col;
-    self->data = 0;
     return;
 }
 
