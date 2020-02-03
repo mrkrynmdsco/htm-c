@@ -4,21 +4,19 @@
 
 SDR* sdr;
 
-void setUp(void)
-{
+void setUp(void) {
     sdr = sdr_Create(4096, 0.02, TRUE);
     TEST_ASSERT_EQUAL(1, sdr->isdense);
     TEST_ASSERT_EQUAL(0, *(sdr->dense));
     TEST_ASSERT_EQUAL(0, *(sdr->sparse));
 }
 
-void tearDown(void)
-{
-    sdr_Destroy(sdr);
+void tearDown(void) {
+    sdr_ResetAll(sdr);
+    TEST_ASSERT_EQUAL(0, sdr->s_pos);
 }
 
-void test_sdr_Create_SDR_object(void)
-{
+void test_sdr_Create_SDR_object(void) {
     TEST_ASSERT_NOT_NULL(sdr);
     TEST_ASSERT_NOT_NULL(sdr->dense);
     TEST_ASSERT_NOT_NULL(sdr->sparse);
@@ -37,8 +35,7 @@ void test_sdr_Create_SDR_object(void)
     TEST_ASSERT_EQUAL(2, sizeof(sdr->sparse[80]));
 }
 
-void test_sdr_Set_SDR_sparse_add_index(void)
-{
+void test_sdr_Set_SDR_sparse_add_index(void) {
     TEST_ASSERT_EQUAL(0, *(sdr->sparse));
 
     // adding invalid index
@@ -78,8 +75,7 @@ void test_sdr_Set_SDR_sparse_add_index(void)
     TEST_ASSERT_EQUAL(4, sdr->s_pos);
 }
 
-void test_sdr_Set_SDR_dense_bit_by_index(void)
-{
+void test_sdr_Set_SDR_dense_bit_by_index(void) {
     sdr_DenseSet(sdr, 7);
     TEST_ASSERT_EQUAL(0b10000000, sdr->dense[0]);
 
@@ -93,8 +89,29 @@ void test_sdr_Set_SDR_dense_bit_by_index(void)
     TEST_ASSERT_EQUAL(0b10000000, sdr->dense[511]);
 }
 
-void test_sdr_Get_SDR_dense_bit_by_index(void)
-{
+void test_sdr_Reset_SDR_dense_bit_by_index(void) {
+    sdr_DenseSet(sdr, 7);
+    TEST_ASSERT_EQUAL(0b10000000, sdr->dense[0]);
+    sdr_DenseReset(sdr, 7);
+    TEST_ASSERT_EQUAL(0b00000000, sdr->dense[0]);
+
+    sdr_DenseSet(sdr, 8);
+    TEST_ASSERT_EQUAL(0b00000001, sdr->dense[1]);
+    sdr_DenseReset(sdr, 8);
+    TEST_ASSERT_EQUAL(0b00000000, sdr->dense[1]);
+
+    sdr_DenseSet(sdr, 9);
+    TEST_ASSERT_EQUAL(0b00000010, sdr->dense[1]);
+    sdr_DenseReset(sdr, 9);
+    TEST_ASSERT_EQUAL(0b00000000, sdr->dense[1]);
+
+    sdr_DenseSet(sdr, 4095);
+    TEST_ASSERT_EQUAL(0b10000000, sdr->dense[511]);
+    sdr_DenseReset(sdr, 4095);
+    TEST_ASSERT_EQUAL(0b00000000, sdr->dense[511]);
+}
+
+void test_sdr_Get_SDR_dense_bit_by_index(void) {
     sdr->dense[0] = 0b10000000;
     TEST_ASSERT_EQUAL(1, sdr_DenseGet(sdr, 7));
 
@@ -109,3 +126,14 @@ void test_sdr_Get_SDR_dense_bit_by_index(void)
     // invalid index
     TEST_ASSERT_EQUAL(255, sdr_DenseGet(sdr, 4096));
 }
+
+/*
+void test_sdr_Print_SDR_dense(void) {
+    sdr->dense[0] = 0xFF;
+    sdr->dense[2] = 0xFF;
+    sdr->dense[4] = 0xFF;
+    sdr->dense[6] = 0xFF;
+    sdr->dense[8] = 0xFF;
+    sdr_DensePrint(sdr);
+}
+*/
