@@ -9,6 +9,6 @@ typedef struct map {
     uint8 ncol;
 } Map;
 
-extern Map* map_Create(uint8 row, uint8 col);
+extern Map* Map_Create(uint8 row, uint8 col);
 
 #endif // HTM_MAP_H

@@ -9,63 +9,43 @@
 
 
 #define CHAR_BITS   8
-#define TRUE        1
-#define FALSE       0
-#define ON          1
-#define OFF         0
-#define YES         1
-#define NO          0
+#define HTM_TRUE        1
+#define HTM_FALSE       0
+#define HTM_ON          1
+#define HTM_OFF         0
+#define HTM_YES         1
+#define HTM_NO          0
 
-/**
- * Represents an 8-bit signed integer
- */
+// Represents an 8-bit signed integer
 typedef char sint8;
-
-/**
- * Represents an 8-bit unsigned integer
- */
+// Represents an 8-bit unsigned integer
 typedef unsigned char uint8;
 typedef unsigned char byte;
-
-/**
- * Represents a 16-bit signed integer.
- */
+// Represents a 16-bit signed integer.
 typedef short sint16;
-
-/**
- * Represents a 16-bit unsigned integer.
- */
+// Represents a 16-bit unsigned integer.
 typedef unsigned short uint16;
-
-/**
- * Represents a 32-bit signed integer.
- */
+// Represents a 32-bit signed integer.
 typedef int32_t sint32;
-
-/**
- * Represents a 32-bit unsigned integer.
- */
+// Represents a 32-bit unsigned integer.
 typedef uint32_t uint32;
-
-/**
- * Represents a 64-bit signed integer.
- */
+// Represents a 64-bit signed integer.
 typedef int64_t sint64;
-
-/**
- * Represents a 64-bit unsigned integer.
- */
+// Represents a 64-bit unsigned integer.
 typedef uint64_t uint64;
-
-/**
- * Represents a 32-bit real number(a floating-point number).
- */
+// Represents a 32-bit real number(a floating-point number).
 typedef float real32;
-
-/**
- * Represents a 64-bit real number(a floating-point number).
- */
+// Represents a 64-bit real number(a floating-point number).
 typedef double real64;
+
+typedef enum {
+    UInt8,
+    UInt16,
+    UInt32,
+    Int8,
+    Int16,
+    Int32,
+} dtype_e;
 
 
 #endif // HTM_TYPES_H

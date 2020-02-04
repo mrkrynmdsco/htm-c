@@ -10,7 +10,7 @@ void _init_dense (SDR* const self) {
 }
 
 // Constructor (initialization and allocation)
-void sdr_ctor (SDR* const self, uint16 n, real32 s, uint8 isdense) {
+void SDR_ctor (SDR* const self, uint16 n, real32 s, uint8 isdense) {
     // total number of bit population
     self->nbits = n;
     // sparsity percentage
@@ -35,17 +35,17 @@ void sdr_ctor (SDR* const self, uint16 n, real32 s, uint8 isdense) {
 }
 
 // Dynamic allocation
-SDR* sdr_Create (uint16 n, real32 s, uint8 isdense) {
+SDR* SDR_Create (uint16 n, real32 s, uint8 isdense) {
     // allocate the SDR object
     SDR* sdr_p = (SDR*) malloc(sizeof(SDR));
     // contruct the object
-    sdr_ctor(sdr_p, n, s, isdense);
+    SDR_ctor(sdr_p, n, s, isdense);
     // return the pointer to the object
     return sdr_p;
 }
 
 // Reset all bits (without deallocation)
-void sdr_ResetAll (SDR* const self) {
+void SDR_ResetAll (SDR* const self) {
     // All dense elements reset to zero
     if (self->dense) {
         for(uint16 i = 0 ; i < sizeof(self->dense) ; i++) {
@@ -65,9 +65,9 @@ void sdr_ResetAll (SDR* const self) {
 }
 
 // Destructor (deallocation and destroy)
-void sdr_Destroy (SDR* const self) {
+void SDR_Destroy (SDR* const self) {
     if (self) {
-        sdr_ResetAll(self);
+        SDR_ResetAll(self);
         free(self->dense);
         free(self->sparse);
         free(self);
@@ -76,7 +76,7 @@ void sdr_Destroy (SDR* const self) {
 }
 
 // Add index value into the sparse activated list
-void sdr_SparseSet (SDR* const self, uint16 i) {
+void SDR_SparseSet (SDR* const self, uint16 i) {
     uint8 idx = 0;
     uint8 addOk = 0;
 
@@ -107,7 +107,7 @@ void sdr_SparseSet (SDR* const self, uint16 i) {
 }
 
 // Set a bit status by index
-void sdr_DenseSet (SDR* const self, uint16 i) {
+void SDR_DenseSet (SDR* const self, uint16 i) {
     if (self->isdense) {
         // check array[index] = (value != 0)
         if (i >= 0 && i < self->nbits) {
@@ -126,7 +126,7 @@ void sdr_DenseSet (SDR* const self, uint16 i) {
 }
 
 // Reset a bit status by index
-void sdr_DenseReset (SDR* const self, uint16 i) {
+void SDR_DenseReset (SDR* const self, uint16 i) {
     if (self->isdense) {
         // check array[index] = (value != 0)
         if (i >= 0 && i < self->nbits) {
@@ -145,7 +145,7 @@ void sdr_DenseReset (SDR* const self, uint16 i) {
 }
 
 // Get a bit status by index
-uint8 sdr_DenseGet (SDR* const self, uint16 i) {
+uint8 SDR_DenseGet (SDR* const self, uint16 i) {
     if (self->isdense) {
         uint8 state;
         // return the bit at the given index, or -1 if out of bounds
@@ -164,12 +164,12 @@ uint8 sdr_DenseGet (SDR* const self, uint16 i) {
 }
 
 // Print out dense representation
-void sdr_DensePrint (SDR* const self) {
+void SDR_DensePrint (SDR* const self) {
     uint16 i, n;
     n = self->nbits;
     
     for (i = 0; i < n; ++i) {
-        putchar(sdr_DenseGet(self, i) ? '1' : '0');
+        putchar(SDR_DenseGet(self, i) ? '1' : '0');
     }
     return;
 }

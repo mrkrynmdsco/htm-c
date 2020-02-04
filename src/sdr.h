@@ -19,17 +19,17 @@ typedef struct SDR {
     uint8* dense;   // pointer to an array of bits of dense representation
 } SDR;
 
-extern void sdr_ctor (SDR* const self, uint16 n, real32 s, uint8 isdense);
-extern SDR* sdr_Create (uint16 n, real32 s, uint8 isdense);
-extern void sdr_Destroy (SDR* const self);
+extern void SDR_ctor (SDR* const self, uint16 n, real32 s, uint8 isdense);
+extern SDR* SDR_Create (uint16 n, real32 s, uint8 isdense);
+extern void SDR_Destroy (SDR* const self);
 
-extern void sdr_ResetAll (SDR* const self);
+extern void SDR_ResetAll (SDR* const self);
 
-extern void sdr_SparseSet (SDR* const self, uint16 i);
+extern void SDR_SparseSet (SDR* const self, uint16 i);
 
-extern void sdr_DenseSet (SDR* const self, uint16 i);
-extern void sdr_DenseReset (SDR* const self, uint16 i);
-extern uint8 sdr_DenseGet (SDR* const self, uint16 i);
-extern void sdr_DensePrint (SDR* const self);
+extern void SDR_DenseSet (SDR* const self, uint16 i);
+extern void SDR_DenseReset (SDR* const self, uint16 i);
+extern uint8 SDR_DenseGet (SDR* const self, uint16 i);
+extern void SDR_DensePrint (SDR* const self);
 
 #endif // HTM_SDR_H
