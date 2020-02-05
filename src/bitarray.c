@@ -12,6 +12,15 @@ void BitArray_ctor (BitArray* const self, uint16 const n) {
     return;
 }
 
+void BitArray_dtor (BitArray* const self) {
+    BitArray_Reset(self);
+    self->nbits = 0;
+    self->dbyte = 0;
+    self->dense = NULL;
+    free(self->dense);
+    return;
+}
+
 BitArray* BitArray_Create (uint16 const n) {
     // allocate memory
     BitArray* ptr = (BitArray*) malloc(sizeof(BitArray));
@@ -19,6 +28,19 @@ BitArray* BitArray_Create (uint16 const n) {
     BitArray_ctor(ptr, n);
     // return the pointer of the object
     return ptr;
+}
+
+void BitArray_Reset (BitArray* const self) {
+    // reset all bits
+    for (uint16 i = 0; i < self->dbyte; i++) {
+        self->dense[i] = 0;
+    }
+    return;
+}
+
+void BitArray_Destroy (BitArray* const self) {
+    BitArray_dtor(self);
+    return;
 }
 
 void BitArray_SetBit (BitArray* const self, uint16 const i) {

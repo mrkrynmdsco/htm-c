@@ -38,13 +38,13 @@ typedef float real32;
 // Represents a 64-bit real number(a floating-point number).
 typedef double real64;
 
-typedef enum {
-    UInt8,
-    UInt16,
-    UInt32,
-    Int8,
-    Int16,
-    Int32,
+typedef enum datatype{
+    UInt8 = 1,
+    UInt16 = 2,
+    UInt32 = 4,
+    Int8 = 1,
+    Int16 = 2,
+    Int32 = 4,
 } dtype_e;
 
 
