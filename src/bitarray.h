@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-typedef struct bitarray {
+typedef struct bit_array {
     uint8* dense;
     uint16 nbits;
     uint16 dbyte;
