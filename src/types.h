@@ -39,12 +39,16 @@ typedef float real32;
 typedef double real64;
 
 typedef enum datatype{
-    UInt8 = 1,
-    UInt16 = 2,
-    UInt32 = 4,
-    Int8 = 1,
-    Int16 = 2,
-    Int32 = 4,
+    UInt8,
+    UInt16,
+    UInt32,
+    UInt64,
+    Int8,
+    Int16,
+    Int32,
+    Int64,
+    Real32,
+    Real64
 } dtype_e;
 
 
