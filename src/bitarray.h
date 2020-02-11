@@ -10,9 +10,6 @@ typedef struct bit_array {
     // plus 4-bytes padding
 } BitArray;
 
-extern void BitArray_ctor (BitArray* const self, uint16 const n);
-extern void BitArray_dtor (BitArray* const self);
-
 extern BitArray* BitArray_Create (uint16 const n);
 extern void BitArray_Reset (BitArray* const self);
 extern void BitArray_Destroy (BitArray* const self);
