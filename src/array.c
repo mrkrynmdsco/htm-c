@@ -83,7 +83,7 @@ void Array_SetDataByIndex (Array* const self, uint32 i, real32 v) {
     return;
 }
 
-void* Array_GetDataByIndex (Array* const self, uint32 i) {
+void* Array_GetDataByIndex (Array const* const self, uint32 i) {
     if (i < self->nitem) {
         switch (self->dtype) {
             case UInt8: return(((uint8*)self->data) + i);

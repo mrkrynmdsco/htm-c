@@ -21,8 +21,12 @@ void test_array_Creation_and_Getters_and_Destroy(void) {
 
 void test_array_Set_and_Get_data_by_index(void) {
     Array* a = Array_Create(UInt8, 4);
-    TEST_ASSERT_EQUAL(0, (uint8)(*(((uint8*)Array_GetDataPtr(a) + 3))));
+    TEST_ASSERT_EQUAL(0, (uint8)(*(uint8*)Array_GetDataByIndex(a, 3)));
     Array_SetDataByIndex(a, 3, 255);
-    TEST_ASSERT_EQUAL(255, (uint8)(*(((uint8*)Array_GetDataPtr(a) + 3))));
     TEST_ASSERT_EQUAL(255, (uint8)(*(uint8*)Array_GetDataByIndex(a, 3)));
+}
+
+void test_array_Get_data_by_index_with_invalid_index(void) {
+    Array* a = Array_Create(UInt8, 4);
+    TEST_ASSERT_EQUAL(NULL, (uint8*)Array_GetDataByIndex(a, 4));
 }

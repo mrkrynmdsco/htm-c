@@ -17,7 +17,7 @@ extern dtype_e Array_GetDataType (Array const* const self);
 extern uint32 Array_GetItemCount (Array const* const self);
 
 extern void Array_SetDataByIndex (Array* const self, uint32 i, real32 v);
-extern void* Array_GetDataByIndex (Array* const self, uint32 i);
+extern void* Array_GetDataByIndex (Array const* const self, uint32 i);
 
 
 #endif // ARRAY_H
