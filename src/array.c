@@ -22,22 +22,28 @@ void Array_ctor (Array* const self, dtype_e dt, uint32 i) {
         case Int16: self->data = calloc(self->nitem, sizeof(sint16)); break;
         case Int32: self->data = calloc(self->nitem, sizeof(sint32)); break;
         case Real32: self->data = calloc(self->nitem, sizeof(real32)); break;
-        default: break;
+        default:
+            self->dtype = INVALID_TYPE;
+            self->nitem = 0;
+            break;
     }
-
     return;
 }
 
 void Array_dtor (Array* const self) {
     // reset data
-    for (uint32 i=0; i < self->nitem; i++) {
-        Array_SetDataByIndex(self, i, 0);
+    if (self->data) {
+        for (uint32 i=0; i < self->nitem; i++) {
+            Array_SetDataByIndex(self, i, 0);
+        }
     }
     // reset members
     self->data = NULL;
     self->nitem = 0;
     self->dtype = INVALID_TYPE;
-
+    // free memory allocation
+    free(self->data);
+    free(self);
     return;
 }
 
@@ -49,9 +55,6 @@ Array* Array_Create (dtype_e dt, uint32 i) {
 
 void Array_Destroy (Array* const self) {
     Array_dtor(self);
-    // free memory allocation
-    free(self->data);
-    free(self);
     return;
 }
 
@@ -68,7 +71,7 @@ uint32 Array_GetItemCount (Array const* const self) {
 }
 
 void Array_SetDataByIndex (Array* const self, uint32 i, real32 v) {
-    if (i < self->nitem) {    
+    if ((self->data) && (i < self->nitem)) {    
         switch (self->dtype) {
             case UInt8: *(((uint8*)self->data) + i) = (uint8)v; break;
             case UInt16: *(((uint16*)self->data) + i) = (uint16)v; break;
@@ -84,7 +87,7 @@ void Array_SetDataByIndex (Array* const self, uint32 i, real32 v) {
 }
 
 void* Array_GetDataByIndex (Array const* const self, uint32 i) {
-    if (i < self->nitem) {
+    if ((self->data) && (i < self->nitem)) {
         switch (self->dtype) {
             case UInt8: return(((uint8*)self->data) + i);
             case UInt16: return(((uint16*)self->data) + i);
