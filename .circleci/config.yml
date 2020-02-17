@@ -9,6 +9,9 @@ jobs:
           name: Installing Ceedling
           command: gem install ceedling
       - run:
+          name: Clean Up for Unit Test
+          command: if [ -d "tmp_ceedling" ]; then rm -Rf tmp_ceedling; fi
+      - run:
           name: Running Unit Tests
-          command: ruby vendor\ceedling\bin\ceedling test:all
+          command: ruby vendor/ceedling/bin/ceedling test:all
           
