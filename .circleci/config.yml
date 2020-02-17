@@ -10,5 +10,5 @@ jobs:
           command: gem install ceedling
       - run:
           name: Running Unit Tests
-          command: ceedling test:all
+          command: ruby vendor\ceedling\bin\ceedling test:all
           
