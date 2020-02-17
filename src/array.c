@@ -2,19 +2,13 @@
 #include "array.h"
 
 
-// Array attributes...
-struct array {
-    void* data;     // abstract data pointer
-    dtype_e dtype;  // data type
-    uint32 nitem;   // data item count
-};
-
 void Array_ctor (Array* const self, dtype_e dt, uint32 i) {
     self->data = NULL;  // unallocated data
     self->dtype = dt;
     self->nitem = i;
     // data allocation
     switch (self->dtype) {
+        case Bit: self->data = calloc(self->nitem, sizeof(uint8)); break;
         case UInt8: self->data = calloc(self->nitem, sizeof(uint8)); break;
         case UInt16: self->data = calloc(self->nitem, sizeof(uint16)); break;
         case UInt32: self->data = calloc(self->nitem, sizeof(uint32)); break;
@@ -32,11 +26,7 @@ void Array_ctor (Array* const self, dtype_e dt, uint32 i) {
 
 void Array_dtor (Array* const self) {
     // reset data
-    if (self->data) {
-        for (uint32 i=0; i < self->nitem; i++) {
-            Array_SetDataByIndex(self, i, 0);
-        }
-    }
+    Array_Reset(self);
     // reset members
     self->data = NULL;
     self->nitem = 0;
@@ -51,6 +41,15 @@ Array* Array_Create (dtype_e dt, uint32 i) {
     Array* arrPtr = (Array*) malloc(sizeof(Array));  // allocate object
     Array_ctor(arrPtr, dt, i);  // construct object
     return arrPtr;  // return pointer
+}
+
+void Array_Reset (Array* const self) {
+    if (self->data) {
+        for (uint32 i=0; i < self->nitem; i++) {
+            Array_SetDataByIndex(self, i, 0);
+        }
+    }
+    return;
 }
 
 void Array_Destroy (Array* const self) {
@@ -73,6 +72,7 @@ uint32 Array_GetItemCount (Array const* const self) {
 void Array_SetDataByIndex (Array* const self, uint32 i, real32 v) {
     if ((self->data) && (i < self->nitem)) {    
         switch (self->dtype) {
+            case Bit: *(((uint8*)self->data) + i) = (uint8)v; break;
             case UInt8: *(((uint8*)self->data) + i) = (uint8)v; break;
             case UInt16: *(((uint16*)self->data) + i) = (uint16)v; break;
             case UInt32: *(((uint32*)self->data) + i) = (uint32)v; break;
@@ -89,6 +89,7 @@ void Array_SetDataByIndex (Array* const self, uint32 i, real32 v) {
 void* Array_GetDataByIndex (Array const* const self, uint32 i) {
     if ((self->data) && (i < self->nitem)) {
         switch (self->dtype) {
+            case Bit: return(((uint8*)self->data) + i);
             case UInt8: return(((uint8*)self->data) + i);
             case UInt16: return(((uint16*)self->data) + i);
             case UInt32: return(((uint32*)self->data) + i);

@@ -9,6 +9,7 @@
   :use_exceptions: FALSE
   :use_test_preprocessor: TRUE
   :use_auxiliary_dependencies: TRUE
+  :auto_link_deep_dependencies: FALSE
   :build_root: tmp_ceedling
 #  :release_build: TRUE
   :test_file_prefix: test_
@@ -62,6 +63,7 @@
     uint32:   UINT32
     int8:     INT8
     bool:     UINT8
+  :treat_externs: :include  # extern-ed functions will be mocked
 
 # Add -gcov to the plugins list to make sure of the gcov plugin
 # You will need to have gcov and gcovr both installed to make it work.
@@ -88,10 +90,24 @@
   :test: []
   :release: []
 
+# :tools:
+#   :pre_test_fixture_execute:
+#     :executable: valgrind
+#     :arguments:
+#       - --track-origins=yes
+#       - --leak-check=full
+#       - --show-leak-kinds=all
+#       - --errors-for-leak-kinds=all
+#       - --error-exitcode=10
+#       - ${1}
+
 :plugins:
   :load_paths:
-    - "#{Ceedling.load_path}"
+    - vendor/ceedling/plugins
   :enabled:
     - stdout_pretty_tests_report
     - module_generator
+    - fake_function_framework
+    - gcov
+    # - command_hooks
 ...

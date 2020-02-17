@@ -2,10 +2,15 @@
 #define BITARRAY_H
 
 #include "types.h"
+#include "array.h"
 
-// BitArray class
-typedef struct bit_array BitArray;
-// BitArray operations
+/* BitArray Class */
+typedef struct bitarray {
+    Array* darray;   // pointer to bit array data
+    uint16 dbytes;   // total bytes count
+} BitArray;
+
+// BitArray Operations
 extern void BitArray_ctor (BitArray* const self, uint16 const n);
 extern void BitArray_dtor (BitArray* const self);
 

@@ -4,8 +4,10 @@
 
 
 #include "types.h"
+#include "bitarray.h"
 
-typedef struct SDR {
+/* SDR Class */
+typedef struct sdr {
     uint16 nbits;   // vector size
     real32 sprct;   // sparsity (percentage)
     uint16 wbits;   // vector cardinality (ON-bits count)
@@ -17,8 +19,9 @@ typedef struct SDR {
 
     uint8 isdense;  // flag to include calculation of dense representation
     uint8* dense;   // pointer to an array of bits of dense representation
-} SDR;
+}  SDR;
 
+/* SDR Operations */
 extern void SDR_ctor (SDR* const self, uint16 n, real32 s, uint8 isdense);
 extern SDR* SDR_Create (uint16 n, real32 s, uint8 isdense);
 extern void SDR_Destroy (SDR* const self);

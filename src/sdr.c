@@ -34,6 +34,16 @@ void SDR_ctor (SDR* const self, uint16 n, real32 s, uint8 isdense) {
     return;
 }
 
+void SDR_dtor (SDR* const self) {
+    if (self) {
+        SDR_ResetAll(self);
+        free(self->dense);
+        free(self->sparse);
+        free(self);
+    }
+    return;
+}
+
 // Dynamic allocation
 SDR* SDR_Create (uint16 n, real32 s, uint8 isdense) {
     // allocate the SDR object
@@ -66,12 +76,7 @@ void SDR_ResetAll (SDR* const self) {
 
 // Destructor (deallocation and destroy)
 void SDR_Destroy (SDR* const self) {
-    if (self) {
-        SDR_ResetAll(self);
-        free(self->dense);
-        free(self->sparse);
-        free(self);
-    }
+    SDR_dtor(self);
     return;
 }
 

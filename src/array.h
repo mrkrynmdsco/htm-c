@@ -3,13 +3,19 @@
 
 #include "types.h"
 
-// Array class
-typedef struct array Array;
-// Array operations
+/* Array Class */
+typedef struct array {
+    void* data;     // abstract data pointer
+    dtype_e dtype;  // data type
+    uint32 nitem;   // data item count
+} Array;
+
+/* Array Operations */
 extern void Array_ctor (Array* const self, dtype_e dt, uint32 i);
 extern void Array_dtor (Array* const self);
 
 extern Array* Array_Create (dtype_e dt, uint32 i);
+extern void Array_Reset (Array* const self);
 extern void Array_Destroy (Array* const self);
 
 extern void* Array_GetDataPtr (Array const* const self );
