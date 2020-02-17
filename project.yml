@@ -74,22 +74,12 @@
     :html_medium_threshold: 75
     :html_high_threshold: 90
     :xml_report: FALSE
+    :report_include: "^src"
 
 #:tools:
 # Ceedling defaults to using gcc for compiling, linking, etc.
 # As [:tools] is blank, gcc will be used (so long as it's in your system path)
 # See documentation to configure a given toolchain for use
-
-# LIBRARIES
-# These libraries are automatically injected into the build process. Those specified as
-# common will be used in all types of builds. Otherwise, libraries can be injected in just
-# tests or releases. These options are MERGED with the options in supplemental yaml files.
-:libraries:
-  :placement: :end
-  :flag: "${1}"  # or "-L ${1}" for example
-  :test: []
-  :release: []
-
 # :tools:
 #   :pre_test_fixture_execute:
 #     :executable: valgrind
@@ -101,13 +91,22 @@
 #       - --error-exitcode=10
 #       - ${1}
 
+# LIBRARIES
+# These libraries are automatically injected into the build process. Those specified as
+# common will be used in all types of builds. Otherwise, libraries can be injected in just
+# tests or releases. These options are MERGED with the options in supplemental yaml files.
+:libraries:
+  :placement: :end
+  :flag: "${1}"  # or "-L ${1}" for example
+  :test: []
+  :release: []
+
 :plugins:
   :load_paths:
-    - vendor/ceedling/plugins
+    - .ceedling/plugins
   :enabled:
     - stdout_pretty_tests_report
     - module_generator
     - fake_function_framework
     - gcov
-    # - command_hooks
 ...

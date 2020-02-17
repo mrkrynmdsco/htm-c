@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/mrkrynmdsco/htm-c/tree/master.svg?style=shield)](https://circleci.com/gh/mrkrynmdsco/htm-c/tree/master)
+[![master](https://circleci.com/gh/mrkrynmdsco/htm-c/tree/master.svg?style=shield)](https://circleci.com/gh/mrkrynmdsco/htm-c/tree/master)
 # Hierarchical Temporal Memory in C
 
 * This repository contains implementation of HTM objects using C programming language to manage memory size and maximize speed and efficiency.
