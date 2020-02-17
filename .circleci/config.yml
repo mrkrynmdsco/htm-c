@@ -14,8 +14,7 @@ jobs:
           command: sudo apt-get install ruby-full
       - run:
           name: Installing Ceedling
-          command: gem install ceedling
+          command: sudo gem install ceedling
       - run:
           name: Running Unit Tests
           command: ruby .ceedling/bin/ceedling test:all
-          
