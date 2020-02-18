@@ -17,8 +17,6 @@ jobs:
           command: sudo gem install ceedling
       - run:
           name: Running Unit Tests and Code Coverage
-          command: |
-            ruby .ceedling/bin/ceedling gcov:all utils:gcov
-            tmp_ceedling/artifacts/gcov/GcovCoverageResults.html
+          command: ruby .ceedling/bin/ceedling gcov:all utils:gcov
       - store_artifacts:
           path: tmp_ceedling/artifacts/gcov
