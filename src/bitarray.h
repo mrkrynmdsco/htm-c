@@ -6,8 +6,9 @@
 
 /* BitArray Class */
 typedef struct bitarray {
-    Array* darray;   // pointer to bit array data
-    uint16 dbytes;   // total bytes count
+    uint8* data;    // pointer to bit array data
+    uint16 nbits;   // total bit count
+    uint16 nbyte;   // total byte count
 } BitArray;
 
 // BitArray Operations
@@ -18,7 +19,7 @@ extern BitArray* BitArray_Create (uint16 const n);
 extern void BitArray_Reset (BitArray* const self);
 extern void BitArray_Destroy (BitArray* const self);
 
-extern uint8* BitArray_GetDense (BitArray const* const self);
+extern uint8* BitArray_GetDataPtr (BitArray const* const self);
 extern uint16 BitArray_GetBitCount (BitArray const* const self);
 extern uint16 BitArray_GetByteCount (BitArray const* const self);
 
