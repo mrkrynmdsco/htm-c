@@ -16,5 +16,5 @@ jobs:
           name: Installing Ceedling
           command: sudo gem install ceedling
       - run:
-          name: Running Unit Tests
-          command: ruby .ceedling/bin/ceedling test:all
+          name: Running Unit Tests and Code Coverage
+          command: ruby .ceedling/bin/ceedling gcov:all utils:gcov
